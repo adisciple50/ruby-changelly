@@ -12,6 +12,8 @@ module Changelly
     end
 
     def test_get_currencies_full
+      puts ENV['changelly_api_key']
+      puts ENV['changelly_secret_key']
       client = Changelly::Client.new
       assert client.get_currencies_full
     end

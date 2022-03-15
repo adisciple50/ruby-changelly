@@ -16,17 +16,17 @@ module Changelly
       end
     end
     def http_params(message)
-      @hmac = OpenSSL::HMAC.hexdigest("SHA512", @key.encode('utf-8'), message.to_json.encode('utf-8').to_s)
+      @hmac = OpenSSL::HMAC.hexdigest('sha512', @key.encode('utf-8'), message.to_json.to_s.encode('utf-8')).to_s
       {'api-key':@api_key,'sign':@hmac}
     end
     def get_currencies_full
       @@message = {
-                    "id": "test",
+                    "id": "1",
                     "jsonrpc": "2.0",
                     "method": "getCurrenciesFull",
                     "params": []
                   }
-      response = @connection.post('',body:@@message,params:http_params(@@message))
+      response = @connection.post('',body: @@message.to_json.to_s.encode('utf-8'),params:http_params(@@message))
       puts response.body.to_s
       return response
     end
